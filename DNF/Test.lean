@@ -1,15 +1,8 @@
 /- Copyright (c) Heather Macbeth, 2023.  All rights reserved. -/
 import DNF.Tactic
-import Mathlib.Data.Fin.VecNotation
 import Mathlib.Util.Time
 
-set_option push_neg.use_distrib true
-
-/-! ## Tests for main tactic -/
-
 variable (P Q R S : Prop)
-
--- set_option trace.Meta.tauto2 true
 
 #time
 example (h1 : P ∧ ¬ P) : False := by prove_false_from_sat

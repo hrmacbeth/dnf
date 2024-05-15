@@ -1,7 +1,6 @@
 /- Copyright (c) Heather Macbeth, 2023.  All rights reserved. -/
 import DNF.Theory.ProveFalseFromSAT
-import Mathlib.Tactic.ToExpr
-import Mathlib.Data.Fin.Basic
+import Mathlib.Logic.Basic
 
 open Lean Elab Tactic Meta
 
@@ -112,9 +111,9 @@ def foo (p : Expr × Expr × Array Expr × Expr) : MetaM Expr := do
     eqAtomsByType.toArray.map (fun (a, b) => (a, HashSet.toArray b))
   trace `Meta.tauto2 (fun _ => m!"found equality atoms {eqAtomsByTypeA}")
 
-  let n : ℕ := eqAtomsByTypeA.size
+  let n : Nat := eqAtomsByTypeA.size
   let tys (i : Fin n) : Expr := (eqAtomsByTypeA.get i).1
-  let m (i : Fin n) : ℕ := (eqAtomsByTypeA.get i).2.size
+  let m (i : Fin n) : Nat := (eqAtomsByTypeA.get i).2.size
   let eqAtoms (i : Fin n) (j : Fin (m i)) : Expr := (eqAtomsByTypeA.get i).2.get j
 
   let b : Array (Option (Σ i : Fin n, Fin (m i) × Fin (m i))) ← atoms.mapM (Lean.Expr.toEdge eqAtomsByTypeA)
