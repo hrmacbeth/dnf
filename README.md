@@ -1,0 +1,3 @@
+This repo contains a reimplementation of the Lean [Mathlib](https://github.com/leanprover-community/mathlib4) `tauto` tactic, i.e. a tactic to prove tautologies in propositional logic.
+
+This project is just a learning exercise -- the implementation is 200 lines long and completely naive, and one should expect it to be dramatically slower than an implementation of a standard SAT algorithm like [DPLL](https://en.wikipedia.org/wiki/DPLL_algorithm).  Check out [duper](https://github.com/leanprover-community/duper), by Josh Clune, if you are looking for something performant.
