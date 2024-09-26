@@ -20,9 +20,12 @@ def insertAndDedup (p : α × Bool) : List (α × Bool) → Option (List (α × 
 
 def interpretBool (P : α → Prop) (p : α × Bool) : Prop := if p.2 then P p.1 else ¬ P p.1
 
-def combine : List (α × Bool) × List (α × Bool) → Option (List (α × Bool))
-  | ([], l) => pure l
-  | (hd :: tl, l) => (combine (tl, l)).bind <| insertAndDedup hd
+def combineAux : List (α × Bool) → List (α × Bool) → Option (List (α × Bool))
+  | [], l => pure l
+  | hd :: tl, l => (combineAux tl l).bind <| insertAndDedup hd
+
+def combine : List (α × Bool) × List (α × Bool) → Option (List (α × Bool)) :=
+  Function.uncurry combineAux
 
 def negate : List (List (α × Bool)) → List (List (α × Bool))
   | [] => [[]]
